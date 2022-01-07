@@ -1,0 +1,52 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+	<changeSet author="Tushar" id="Items-1">
+		<preConditions onFail="WARN">
+			<dbms type="H2" />
+		</preConditions>
+		<createTable tableName="items">
+			<column autoIncrement="true" name="itemid" type="INT">
+				<constraints primaryKey="true" />
+			</column>
+			<column name=" CREATED_BY" type="VARCHAR(225)" />
+			<column name="CREATED_DATE" type="TIMESTAMP" />
+			<column name=" LAST_MODIFIED_BY" type="VARCHAR(225)" />
+			<column name=" UPDATED_DATE" type="TIMESTAMP" />
+			<column name="  CURRENT_STOCK" type="INT" />
+			<column name="w_id" type="INT">
+				<constraints nullable="false"
+					foreignKeyName="fk_items_order" referencedTableName="items"
+					referencedColumnNames="itemid" />
+			</column>
+		</createTable>
+		<rollback>
+			<dropTable tableName="items" />
+		</rollback>
+	</changeSet>
+
+	<changeSet author="Tushar" id="Warehouse-1">
+		<preConditions onFail="WARN">
+			<dbms type="H2" />
+		</preConditions>
+		<createTable tableName="warehouse">
+			<column autoIncrement="true" name="warehouseid" type="INT">
+				<constraints primaryKey="true" />
+			</column>
+			<column name="CREATED_BY" type="VARCHAR(200)" />
+			<column name="CREATED_DATE" type="TIMESTAMP" />
+			<column name="LAST_MODIFIED_BY" type="VARCHAR(200)" />
+			<column name="UPDATED_DATE" type="TIMESTAMP" />
+
+		</createTable>
+		<rollback>
+			<dropTable tableName="warehouse" />
+		</rollback>
+
+	</changeSet>
+
+</databaseChangeLog>
